@@ -7,7 +7,7 @@ header-img: img/home-bg.png
 email: 451213844@qq.com
 description: "后端开发 | 薛涛，Back-end Engineer"
 keyword: "Java, Spring, Spring Cloud, 后端"
-url: "https://futuregoing.com/"              # your host, for absolute URL
+url: "https://futuregoing.blog/"              # your host, for absolute URL
 baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
 
 
