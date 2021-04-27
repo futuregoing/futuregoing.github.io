@@ -1,150 +1,169 @@
-# texture
+## Hello World
 
-A configurable jekyll theme for simply beautiful blogs.
+Hello World~ This is the blog that I record things.
 
-**Demo**: [thelehhman.com/texture](https://thelehhman.com/texture)
+这是我的个人博客，一路写写停停~
 
-![texture theme preview](/screen1.png)
+下面是博客搭建教程，更详细教程请戳[如何搭建jekyll主题的github.io博客](http://meilianwu.com/2018/05/31/blog-build.html)
 
+我的[github](https://github.com/wumeilian)
 
-## Installation on Github Pages
+![img](https://raw.githubusercontent.com/wumeilian/wumeilian.github.io/master/img/blog-build-6.png)
 
-Add this line to your site's `_config.yml`:
-```yaml
-remote_theme: thelehhman/texture
+## 使用
+
+* 开始
+  * [环境](#环境)
+  * [修改配置](#修改配置)
+  * [撰写博客](#撰写博客)
+  
+* 组件
+  * [侧边栏](#侧边栏)
+  * [推荐标签](#featured-tags)
+  * [好友链接](#friends)
+  * [社交账号](#社交账号)
+
+* 评论
+  * [gitalk评论插件](#gitalk评论插件)
+
+### 环境
+
+本地安装[jekyll](http://jekyllcn.com/)，使用`jekyll serve`或`jekyll serve --watch`命令监听4000端口，打开`http://127.0.0.1:4000/`就可以预览修改内容，需要注意的是，`_config.yml`配置的修改需要重新执行命令。
+
+### 修改配置
+
+`_config.yml`配置文件中添加自己的信息
+
+``` markdown
+# Site settings
+title: Wml Blog    # blog title
+SEOTitle: 吴美莲的博客 | Wml Blog   # seo title
+description: "前端开发"  # seo description
+url: "https://meilianwu.com/"     # your host, for absolute URL
+
+# Build settings
+paginate: 5     # paginate number
+plugins: [jekyll-paginate]
 ```
 
-**NOTE: If you are forking this repo, remove `base_url: /texture` in the `_config.yml` which is required to load the required website assets**
-## Installation
+### 撰写博客
 
-Add this line to your Jekyll site's `Gemfile`:
+在`_posts`文件下添加新的博客文章，文章可以使用`markdown`编写，也可以使用`textile`格式编写，每篇文章头部都需要添加YAML头信息，它们会将文章内容转换成HTML页面。结构大致是
 
-```ruby
-gem "texture"
+``` markdown
+---
+layout:     post
+title:      "如何搭建jekyll主题的github.io博客"
+subtitle:   ""
+author:     "wml"
+header-img: "img/blog-build-1.png"
+header-mask:  0.5
+catalog: true
+tags:
+    - blog
+---
 ```
 
-And add this line to your Jekyll site's `_config.yml`:
+### 侧边栏
 
-```yaml
-theme: texture
+![sidebar](https://raw.githubusercontent.com/wumeilian/wumeilian.github.io/master/img/readme-1.png)
+
+侧边栏的配置在`_config.yml`中
+
+``` markdown
+# Sidebar settings
+sidebar: true          # 是否使用侧边栏
+sidebar-about-description: "Web Developer <br/> 未知的我们向着未知的世界出发"   # 描述自己
+sidebar-avatar: /img/avatar.png  # 头像
 ```
 
-And then execute:
+### featured-tags
 
-    $ bundle
+个人标签是否展示，在`_config.yml`中配置
 
-Or install it yourself as:
-
-    $ gem install texture
-
-## Usage
-
-The "texture" key in _config.yml is used to customize the theme data.
-```yaml
-texture:
-  title: Adam Denisov
-  tagline: Developer. Designer
-  date_format: "%b %-d, %Y"
-
-  social_links:
-    twitter: thelehhman
-    github:  thelehhman
-    linkedIn: in/thelehhman # format: locale/username
+``` markdown
+# Featured Tags
+featured-tags: true     # whether or not using Feature-Tags
+featured-condition-size: 1      # A tag will be featured if the size of it is more than this condition value
 ```
 
-**Styling**
+需要注意的是`featured-condition-size`: 如果一个标签的 SIZE，也就是使用该标签的文章数大于上面设定的条件值，这个标签就会在首页上被推荐。
 
-Multiple header styles are supported using the "style" property under texture in `_config.yml`.
+内部有一个条件模板 `{% if tag[1].size > {{site.featured-condition-size}} %}` 是用来做筛选过滤的.
 
-```yaml
-texture:
-  style: [yellow|red|black|blue|green|purple]
+另外个人标签在每篇博客文章的头信息里添加；
+
+``` markdown
+tags:
+    - blog  #添加了'blog'的标签
 ```
 
-For example, the blue style looks like this:
+### friends
 
-![texture theme blue](/screen2.png)
+这里可以添加好友友情链接，设置也是在`_config.yml`里添加好友
 
-
-**Texture Picker**
-
-You can toggle the texture picker to show/experiment various textures on your site using the showPicker variable. Remember to make it `false` for production.
-
-```yaml
-texture:
-  showPicker: [false|true] # show the texture selector(development purposes)
+``` markdown
+# Friends
+friends: [{
+  title: "wfm's github",
+  href: "https://github.com/wfm19970"
+}]
 ```
 
-**Comments (Disqus)**
+### 社交账号
 
-Comments on posts can be enabled by specifying your disqus_shortname under texture in `_config.yml`. For example,
-```yaml
-texture:
-  disqus_shortname: games
+社交账号添加
+
+``` markdown
+# SNS settings
+RSS: false
+weibo_username:     AnnualWu
+zhihu_username:     wml
+github_username:    wumeilian
 ```
 
-**Google Analytics**
+在`_includes/footer.html`文件中有关于社交账号的展示，目前这里就列出了微博，知乎，推特，Facebook还有github的展示，如果想展示更多别的社交账号，只需要在文件下按以下格式添加即可，(eg.github的添加方式)
 
-It can be enabled by specifying your analytics id under texture in `_config.yml`
-```yaml
-texture:
-  analytics_id: '< YOUR ID >'
+```html
+{% if site.github_username %}
+  <li>
+      <a target="_blank" href="https://github.com/{{ site.github_username }}">
+          <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+          </span>
+      </a>
+  </li>
+{% endif %}
 ```
 
-**Excerpts**
+### gitalk评论插件
 
-Excerpts can be enabled by adding the following line to your `_config.yml`
-```yaml
-show_excerpts: true
+本文使用的是gitalk评论插件
+
+![gitalk](https://raw.githubusercontent.com/wumeilian/wumeilian.github.io/master/img/blog-build-17.png)
+
+将这段代码插入`_layouts/_post.html`中
+
+```html
+<!-- Gitalk 评论 start  -->
+<!-- Link Gitalk 的支持文件  -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script> 
+<div id="gitalk-container"></div>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+    // gitalk的主要参数
+    clientID: `Github Application clientID`,
+    clientSecret: `Github Application clientSecret`,
+    repo: `存储你评论 issue 的 Github 仓库名`,
+    owner: 'Github 用户名',
+    admin: ['Github 用户名'],
+    id: '页面的唯一标识，gitalk会根据这个标识自动创建的issue的标签',
+    });
+    gitalk.render('gitalk-container');
+</script>
+<!-- Gitalk end -->
 ```
 
-**Toggle Navbar**
-
-```yaml
-texture:
-  showNav: true
-```
-
-**Navigation**
-
-After setting `showNav` to true navigation can be built by adding the following to your `_config.yml`
-
-```yaml
-texture:
-  navigation:
-    - title: My Work
-      url: "/my-work"
-    - title: Resume
-      url: "/resume"
-```
-
-**Layouts**
-
-- Home
-- Page
-- Post
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/thelehhman/texture. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
-## Development
-
-To set up your environment to develop this theme, run `bundle install`.
-
-Your theme is setup just like a normal Jekyll site! To test your theme, run `bundle exec jekyll serve` and open your browser at `http://localhost:4000`. This starts a Jekyll server using your theme. Add pages, documents, data, etc. like normal to test your theme's contents. As you make modifications to your theme and to your content, your site will regenerate and you should see the changes in the browser after a refresh, just like normal.
-
-When your theme is released, only the files in `_layouts`, `_includes`, `_sass` and `assets` tracked with Git will be bundled.
-To add a custom directory to your theme-gem, please edit the regexp in `texture.gemspec` accordingly.
-
-## Donation
-If this project help you reduce time to develop, you can give me a cup of coffee :) 
-
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/thelehhman)
-
-## License
-
-The theme is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-## More Themes
-[plainwhite](https://github.com/thelehhman/plainwhite-jekyll)
+创建一个[github application](https://github.com/settings/applications/new)；将创建好产生的Client ID 和 Client Secret 填入你的我们 Gitalk 参数中,推送到远程仓库以后刷新每篇文章会产生一个issue，首次加载可能比较慢。这里感谢[qiubaiying](http://qiubaiying.top/2017/12/19/%E4%B8%BA%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0-Gitalk-%E8%AF%84%E8%AE%BA%E6%8F%92%E4%BB%B6/)的教程。
